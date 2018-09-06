@@ -1,0 +1,166 @@
+// STRING REPLACE FUNCTION
+// ==========================================================================
+// Replace `$search` with `$replace` in `$string`
+// @author Hugo Giraudel
+// @param {String} $string - Initial string
+// @param {String} $search - Substring to replace
+// @param {String} $replace ('') - New value
+// @return {String} - Updated string
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(
+        str-slice($string, $index + str-length($search)),
+        $search,
+        $replace
+      );
+  }
+
+  @return $string;
+}
+
+@mixin basePadding($ind: 15px) {
+  box-sizing: border-box;
+  padding: $ind;
+}
+
+@mixin iconSize($size: medium) {
+  @if ($size == medium) {
+    width: 20px;
+    height: 20px;
+  } @else if($size == small) {
+    width: 15px;
+    height: 15px;
+  } @else if($size == big) {
+    width: 30px;
+    height: 30px;
+  } @else if($size == bigger) {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@mixin columnListIndent(
+  $t: $smallIndent,
+  $r: $smallIndent,
+  $b: $smallIndent,
+  $l: $smallIndent
+) {
+  margin-bottom: 2px;
+  padding: $t $r $b $l;
+  box-sizing: border-box;
+}
+@mixin indentBetween($pos: vertical, $ind: $smallIndent) {
+  @if ($pos == vertical) {
+    > *:not(:last-child) {
+      margin-bottom: $ind;
+    }
+  } @else {
+    > *:not(:last-child) {
+      margin-right: $ind;
+    }
+  }
+}
+@mixin radius($val: $radiusPx, $type: all) {
+  @if $type == all {
+    border-radius: $val;
+  } @else {
+    border-#{$type}-radius: $val;
+  }
+}
+@mixin shadow($type: long) {
+  @if ($type == short) {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  } @else if ($type == boundless) {
+    box-shadow: 0 0 0 2000px $shadowRgba;
+  } @else {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  }
+}
+@mixin absoluteCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@mixin transition($type) {
+  transition: $type 1s ease-out;
+}
+/* ICONS DEF STYLE */
+@mixin keyframes-blind() {
+  animation: blind 1s infinite alternate-reverse;
+  @keyframes blind {
+    from {
+      opacity: 0;
+    }
+    to {
+    }
+  }
+}
+@mixin respond-to($media) {
+  @if $media == xs {
+    @media only screen and (max-width: $break-xs) {
+      @content;
+    }
+  } @else if $media == sm {
+    @media only screen and (max-width: $break-sm) {
+      @content;
+    }
+  } @else if $media == md {
+    @media only screen and (max-width: $break-md) {
+      @content;
+    }
+  } @else if $media == lg {
+    @media only screen and (min-width: $break-md+1) {
+      @content;
+    }
+  }
+}
+@mixin modNavDef-sm-style() {
+  @include appearAnimantion(masked, left);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  z-index: var(--z-indexMainMenu);
+  width: var(--menuWidth);
+  background: var(--mainBgColor);
+  position: fixed;
+}
+@mixin appearAnimantion($type, $from: bottom) {
+  @if $type == masked {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.3s ease, visibility 0.3s ease;
+    // transition: all 0.3s ease;
+    @if $from == bottom {
+      transform: translateY(10px);
+    } @else if $from == left {
+      transform: translateX(-50px);
+    }
+    @content;
+  } @else if $type == shown {
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0);
+    @content;
+  }
+}
+@mixin substrateColor($type) {
+  @if ($type == "accent") {
+    background-color: var(--accentColor);
+    color: var(--navTextColor);
+  } @else if ($type == "main") {
+    background-color: var(--mainBgColor);
+    color: var(--navTextColor);
+  } @else if ($type == "content") {
+    background-color: var(--mainContentBg);
+    color: var(--mainContentColor);
+  }
+  // @else if ($type == "alert") {
+  // background-color: var(--modulCalendarkBg);
+  // color: var(--alertContentColor);
+  // } @else if ($type == "passed") {
+  // background-color: var(--modulCalendarkBg);
+  // color: var(--alertContentColor);
+  // }
+}

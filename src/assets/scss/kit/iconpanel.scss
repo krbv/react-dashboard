@@ -1,0 +1,69 @@
+#iconpanel {
+  --exp-btn-width: 30px;
+  @include shadow;
+  grid-area: iconpanel;
+  margin-top: $configTopMargin;
+  position: relative;
+  background: var(--configBg);
+
+  /* MEDIA */
+  @include respond-to(md) {
+    position: fixed;
+    bottom: 0;
+    min-width: var(--exp-btn-width);
+    &.expand {
+      min-width: var(--menuWidth);
+      @include respond-to(sm) {
+        min-width: 100%;
+      }
+    }
+    &:not(.expand) {
+      .button {
+        display: none;
+      }
+    }
+  }
+
+  .wrap {
+    width: var(--configvWidth);
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    /* MEDIA */
+    @include respond-to(md) {
+      width: auto;
+      position: initial;
+      flex-direction: row;
+      justify-content: stretch;
+    }
+    > .button {
+      @include shadow(short);
+      position: relative;
+      height: 50px;
+      cursor: pointer;
+      &.expand-button {
+        display: none;
+        max-width: var(--exp-btn-width);
+        @include respond-to(md) {
+          display: initial;
+        }
+      }
+      /* MEDIA */
+      @include respond-to(md) {
+        width: auto;
+        flex: 1;
+        height: 40px;
+        border-top: 1px solid var(--navTextColor);
+      }
+      .iicon {
+        @include absoluteCenter;
+        opacity: 0.5;
+      }
+    }
+  }
+}

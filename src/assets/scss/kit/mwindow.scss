@@ -1,0 +1,63 @@
+& {
+  @include shadow;
+  @include radius($type: bottom-right);
+  visibility: hidden;
+  grid-area: pwindow;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 600px;
+  padding: var(--baseIndent);
+  box-sizing: border-box;
+  background: var(--popupBgColor);
+  z-index: var(--z-indexPwindow);
+  border: 2px solid #fff;
+  border-top: 0;
+  color: var(--popupContentColor);
+  &.shown {
+    visibility: visible;
+  }
+  // > header {
+  //   min-height: 50px;
+  //   > section.title {
+  //     display: flex;
+  //     justify-content: space-between;
+  //     .close {
+  //       cursor: pointer;
+  //     }
+  //   }
+  // }
+  > .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+    margin: var(--smallIndent);
+  }
+  > .wrap {
+    header {
+      min-height: 50px;
+    }
+    section.content {
+      .scroll {
+        max-height: calc(100vh - 120px);
+        overflow: auto;
+      }
+    }
+  }
+}
+
+& > .wrap > .addtask {
+  section.buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin: var(--smallIndent) -10px 0 0;
+    button {
+      width: auto;
+      margin-right: 10px;
+      &.left {
+        margin-right: auto;
+      }
+    }
+  }
+}
