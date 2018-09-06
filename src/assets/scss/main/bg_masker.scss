@@ -1,0 +1,73 @@
+.preload-masker {
+  margin-bottom: var(--baseIndent);
+  .__bg {
+    @include radius;
+    background: linear-gradient(to right, #eee 8%, #ddd 18%, #eee 33%);
+    background-size: 1000px 100%;
+    background-position-x: 0px;
+    animation: placeHolderShimmer 2s infinite linear;
+    @keyframes placeHolderShimmer {
+      100% {
+        background-position-x: 1000px;
+      }
+    }
+  }
+  .__hpad {
+    @include basePadding;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .__indent_h {
+    margin-right: var(--baseIndent);
+    margin-left: var(--baseIndent);
+  }
+  .__space {
+    padding: 5px;
+    margin: 0;
+  }
+  > section {
+    @include basePadding;
+    margin-bottom: var(--baseIndent);
+  }
+  > section.__extra {
+    @include basePadding;
+    min-height: calc(var(--baseIndent) * 3);
+    margin-bottom: var(--baseIndent);
+  }
+  > section.__flex {
+    display: flex;
+    > * {
+      @include basePadding;
+      flex: 1;
+    }
+    > .__f-desck {
+      max-width: 15%;
+      margin-right: var(--baseIndent);
+    }
+    > .__circle_icon {
+      border-radius: 50%;
+      max-width: 50px;
+      max-height: 50px;
+      min-width: 50px;
+      min-height: 50px;
+      margin-right: var(--baseIndent);
+    }
+    > .__circle_icon_sm {
+      border-radius: 50%;
+      max-width: 25px;
+      max-height: 25px;
+      min-width: 25px;
+      min-height: 25px;
+      margin-right: var(--baseIndent);
+    }
+  }
+  > section.__ul {
+    &.__short {
+      max-width: 300px;
+    }
+    .__li {
+      @include basePadding(10px);
+      margin-bottom: var(--smallIndent);
+    }
+  }
+}

@@ -1,0 +1,107 @@
+section#modules {
+  grid-area: modules;
+
+  background: var(--modulesBgColor);
+  padding-top: var(--baseIndent);
+  position: relative;
+  /* MEDIA */
+  @include respond-to(md) {
+    @include radius;
+    @include basePadding;
+    border-radius: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--navTextColor);
+    background: $mainColor;
+    margin-bottom: 0;
+  }
+  @include respond-to(sm) {
+    @include modNavDef-sm-style;
+  }
+  .wrap {
+    ul {
+      text-align: center;
+      font-size: 80%;
+      /* MEDIA */
+      @include respond-to(md) {
+        display: flex;
+        font-size: 0;
+        justify-content: space-between;
+      }
+      li a {
+        margin-bottom: var(--smallIndent);
+        padding: 8px 0;
+        display: block;
+        position: relative;
+        text-align: center;
+        opacity: 0.7;
+        &.active {
+          @include substrateColor(main);
+          border-left: 2px solid var(--accentColor);
+
+          border-left-color: $accentColor;
+          opacity: 1;
+          /* MEDIA */
+          @include respond-to(md) {
+            border: 0;
+            border-top: 2px solid var(--accentColor);
+          }
+        }
+        &:hover:not(.active) {
+          background: var(--mainBgColor);
+          opacity: 0.8;
+        }
+        &:before {
+          content: "";
+          @include radius;
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%, 0);
+          top: 5px;
+          padding: 17px 18px;
+          background-size: 25px;
+        }
+        .block-icon {
+          display: block;
+          margin: auto;
+          margin-bottom: 5px;
+        }
+        &.task:before {
+          background-color: var(--modulTaskBg);
+        }
+        &.sticker:before {
+          background-color: var(--modulStickerkBg);
+        }
+        &.calendar:before {
+          background-color: var(--modulCalendarkBg);
+        }
+        &.editor:before {
+          background-color: var(--modulEditorkBg);
+        }
+      }
+    }
+    .close {
+      display: none;
+      @include respond-to(sm) {
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        top: 0;
+        right: 0px;
+        background-color: #fff;
+      }
+    }
+
+    .logo {
+      font-size: 220%;
+      text-align: center;
+      line-height: 1;
+      margin-bottom: 15px;
+      span {
+        display: none;
+        @include respond-to(md) {
+          display: initial;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,270 @@
+& {
+  position: relative;
+}
+> section.task-upper-window {
+  @include shadow();
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  right: 0;
+  max-width: 700px;
+  width: 100%;
+
+  ul.files {
+    margin-top: var(--smallIndent);
+    @include indentBetween("horizontal", var(--baseIndent));
+
+    display: flex;
+    flex-wrap: wrap;
+    &:before {
+      content: "Приложение:";
+      margin-right: var(--smallIndent);
+    }
+  }
+
+  article.task {
+    .list-margin {
+      ul {
+        @include indentBetween();
+        @include basePadding;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+    .__btop {
+      border: 1px solid var(--mainContentBorderColor);
+    }
+
+    .section-title {
+      margin-bottom: var(--baseIndent);
+      font-size: 130%;
+    }
+    > section {
+      @include basePadding;
+      &.extrapad {
+        padding-top: 25px;
+        padding-bottom: 25px;
+      }
+    }
+
+    > section.open-conditions {
+      text-align: center;
+      border: 2px dotted var(--mainContentBorderColor);
+      border-left: 0;
+      border-right: 0;
+      cursor: pointer;
+    }
+
+    > section.close {
+      @include radius($type: bottom-right);
+      @include radius($type: bottom-left);
+
+      position: absolute;
+      right: var(--smallIndent);
+      padding: 0 5px;
+      background-color: var(--greyColor);
+    }
+    > section.info {
+      padding-left: 0;
+      padding-top: 0;
+      display: flex;
+      //flex-wrap: wrap;
+
+      > * {
+        padding: var(--smallIndent);
+        margin: 0 var(--smallIndent);
+        box-sizing: border-box;
+        &.number {
+          @include respond-to(sm) {
+            display: none;
+          }
+        }
+        &.type {
+          margin-right: auto;
+        }
+        &.status {
+          @include radius($type: bottom-right);
+          @include radius($type: bottom-left);
+        }
+        &.created {
+          //padding-left: 50px;
+          //margin-left: auto;
+          white-space: nowrap;
+          i {
+            position: absolute;
+            margin: 1px 0 0 -20px;
+          }
+          .hours {
+            @include respond-to(sm) {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    > section.title {
+      background: var(--mainSubstrateBg);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      @include respond-to(sm) {
+        display: block;
+      }
+      h1 {
+        font-size: 140%;
+      }
+      button {
+        display: inline-block;
+        width: auto;
+        background: var(--inactiveTabBgColor);
+        color: #fff;
+        font-size: 90%;
+        position: relative;
+        @include respond-to(sm) {
+          margin-top: var(--smallIndent);
+        }
+        .g-pmenu {
+          white-space: nowrap;
+          right: 0;
+          margin-top: 35px;
+          text-align: left;
+          @include respond-to(sm) {
+            right: unset;
+            left: 0;
+          }
+        }
+      }
+    }
+
+    > section.review {
+      @include indentBetween($ind: var(--baseIndent));
+      .ceil {
+        &.description {
+          line-height: 1.4;
+        }
+        .flexwrap {
+          display: flex;
+          .key {
+            min-width: 80px;
+            font-size: 80%;
+            opacity: 0.7;
+          }
+        }
+      }
+    }
+    > .timeline {
+      border-left: unset;
+      border-right: unset;
+      ul {
+        @include indentBetween();
+        @include basePadding;
+        padding-top: 0;
+        li {
+          span {
+            font-size: 80%;
+            opacity: 0.9;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+    > .chat {
+      padding: 0;
+
+      .add {
+        @include indentBetween();
+        background: #eee;
+        padding: 10px;
+        .styleform {
+          display: flex;
+          align-items: center;
+          img {
+            width: 30px;
+            height: 30px;
+            object-fit: cover;
+            margin-right: var(--smallIndent);
+            background: #fff;
+            padding: 5px;
+            border-radius: 50%;
+          }
+          textarea {
+            resize: vertical;
+            width: 100%;
+            background: #fff;
+            min-height: 0px;
+            max-height: 40px;
+          }
+        }
+        .send-fields {
+          padding: 0 0 0 var(--baseIndent);
+
+          display: none;
+          justify-content: space-between;
+          align-items: center;
+          &.open {
+            display: flex;
+          }
+          .attach {
+            i {
+              position: absolute;
+              margin: 2px;
+            }
+            span {
+              margin-left: 25px;
+            }
+          }
+        }
+      }
+
+      .messages {
+        margin: var(--baseIndent) var(--baseIndent);
+
+        @include respond-to(sm) {
+          margin-left: 0;
+          margin-right: 0;
+        }
+        .message {
+          @include basePadding(var(--baseIndent));
+
+          display: grid;
+          grid-template-areas:
+            "gavatar gname gdate"
+            "gavatar gtext gtext";
+          grid-template-rows: min-content 1fr;
+          grid-template-columns: min-content 1fr min-content;
+          grid-column-gap: 15px;
+          grid-row-gap: 5px;
+
+          &:not(:last-child) {
+            border-bottom: 1px solid var(--mainContentBorderColor);
+          }
+
+          .date {
+            grid-area: gdate;
+            opacity: 0.5;
+            font-size: 60%;
+          }
+          .name {
+            grid-area: gname;
+            font-weight: bold;
+          }
+          .avatar {
+            @include shadow(short);
+            grid-area: gavatar;
+            background: #eee;
+            padding: 2px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            margin-top: 5px;
+          }
+          .text {
+            grid-area: gtext;
+          }
+        }
+      }
+    }
+  }
+}

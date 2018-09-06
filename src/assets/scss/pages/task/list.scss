@@ -1,0 +1,163 @@
+> section.task-list {
+  @include radius;
+  position: relative;
+
+  &.task-opened {
+    .wrap:before {
+      content: "";
+      @include shadow(boundless);
+      position: absolute;
+
+      z-index: 2;
+    }
+  }
+  .wrap {
+    @include shadow;
+    overflow: hidden;
+    // &:before {
+    //   content: "";
+    //   position: absolute;
+    //   box-shadow: 0 0 0 1500px rgba(0, 0, 0, 0.4);
+    //   z-index: 2;
+    // }
+
+    .empty-data {
+      @include basePadding;
+      text-align: center;
+
+      &:before {
+        content: "cписок пуст";
+
+        font-size: 130%;
+        opacity: 0.5;
+      }
+    }
+    a {
+      color: inherit;
+    }
+    .item {
+      @include basePadding;
+
+      display: grid;
+      align-items: center;
+      height: 60px;
+      border-width: 1px;
+      border-bottom-style: solid;
+      border-color: var(--mainContentBorderColor);
+      text-align: center;
+      grid-template-columns: 40px 80px minmax(50px, 2fr) 150px 1fr 1fr;
+      grid-template-areas: "status id title type created due";
+      grid-gap: 10px;
+      //transition: border 0.2s, background-color 0.3s;
+      &.active {
+        //border-left: 2px solid var(--accentColor);
+        background: var(--mainSubstrateBg);
+        z-index: 2;
+        position: relative;
+      }
+      &.legend {
+        font-weight: bold;
+        .status:after {
+          display: none;
+        }
+      }
+      @include respond-to(sm) {
+        grid-template-columns: 15px 42px minmax(50px, 2fr) 60px 0 60px;
+        &.legend {
+          .status {
+            display: none;
+          }
+        }
+        .id {
+          text-align: left;
+        }
+        .marker {
+          .g-type-task {
+            background: transparent;
+          }
+          .g-type-task:before {
+            content: "\00a0";
+          }
+        }
+      }
+      .id {
+        grid-area: id;
+      }
+
+      .status {
+        grid-area: status;
+        position: relative;
+
+        @include respond-to(sm) {
+          text-align: left;
+        }
+        &:after {
+          content: "";
+          @include radius(50%);
+          display: inline-block;
+          padding: 5px;
+        }
+
+        &.statcolor-after-error:after {
+          @include radius;
+          @include keyframes-blind;
+          padding: 7px;
+        }
+      }
+      .title {
+        grid-area: title;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .marker {
+        grid-area: type;
+      }
+
+      &:not(.legend) {
+        .marker {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          i.comment {
+            @include keyframes-blind;
+          }
+          span {
+            position: relative;
+            @include radius;
+            padding: 5px 5px 5px 25px;
+            i {
+              left: 2px;
+              position: absolute;
+            }
+          }
+        }
+      }
+      .due-date {
+        grid-area: due;
+      }
+      .created-date {
+        grid-area: created;
+        overflow: hidden;
+      }
+    }
+  }
+}
+> #addtask {
+  @include shadow;
+  display: none;
+  position: fixed;
+  // border-radius: 50%;
+  // padding: 15px;
+  // line-height: 0;
+  bottom: 60px;
+  right: 20px;
+  background: var(--accentColor);
+
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  @include respond-to(sm) {
+    display: block;
+  }
+}

@@ -1,0 +1,109 @@
+#top-menu {
+  --widthIcon: 40px;
+  --heightBlock: 35px;
+  grid-area: search;
+  display: grid;
+  position: absolute;
+  right: 0px;
+  height: var(--heightBlock);
+  margin: 10px;
+  z-index: 10;
+  grid-template-areas: "menu title search config";
+  grid-template-columns: 0 0 200px var(--widthIcon);
+  grid-gap: var(--baseIndent);
+
+  @include respond-to(md) {
+    grid-template-columns: 0 0 var(--widthIcon) var(--widthIcon);
+  }
+  @include respond-to(sm) {
+    grid-template-columns: var(--widthIcon) 1fr var(--widthIcon) var(
+        --widthIcon
+      );
+    grid-gap: var(--smallIndent);
+  }
+  @include respond-to(sm) {
+    position: unset;
+  }
+  & > * {
+    overflow: hidden;
+  }
+  > .search {
+    @include radius;
+    grid-area: search;
+    position: relative;
+    .wrapsearch {
+      position: absolute;
+      z-index: 100;
+      height: 100%;
+      top: 0;
+      right: 0;
+      width: 40px;
+      background: rgba(0, 0, 0, 0.2);
+      @include respond-to(sm) {
+        background: unset;
+      }
+      i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        @include respond-to(sm) {
+          @include iconSize(big);
+        }
+      }
+    }
+    input {
+      --paddingLR: 10px;
+      height: 100%;
+      width: 100%;
+      background: var(--inactiveTabBgColor);
+      color: $contentColor;
+      padding: 0 calc(var(--widthIcon) + var(--paddingLR)) 0 var(--paddingLR);
+      @include respond-to(sm) {
+        display: none;
+      }
+      &::placeholder {
+        opacity: 0.8;
+        color: inherit;
+      }
+    }
+  }
+  > .modtitle {
+    grid-area: title;
+    font-size: 150%;
+    display: flex;
+    align-items: center;
+  }
+  > .menu {
+    grid-area: menu;
+    cursor: pointer;
+  }
+  > .config {
+    @include radius;
+    grid-area: config;
+    background-color: var(--topMenuIconBg);
+    cursor: pointer;
+    .iicon.bigger {
+      display: none;
+      @include respond-to(sm) {
+        display: inline-block;
+      }
+    }
+    img.userava {
+      position: absolute;
+      width: var(--widthIcon);
+      height: var(--heightBlock);
+      object-fit: contain;
+      @include respond-to(sm) {
+        display: none;
+      }
+    }
+    @include respond-to(sm) {
+      background-color: unset; // hide arrow // fixe border radius
+      .g-pmenu ul {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+      }
+    }
+  }
+}

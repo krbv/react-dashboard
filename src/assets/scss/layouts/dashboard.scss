@@ -1,0 +1,268 @@
+@import "../../../../node_modules/reset-css/sass/reset.scss";
+
+@import "../main/vars.scss";
+@import "../main/mixin.scss";
+@import "../main/icons.scss";
+@import "../main/themes.scss";
+
+.app {
+  @include substrateColor(main);
+  display: grid;
+
+  grid-template-areas:
+    ". . . search"
+    "modules menu main iconpanel";
+
+  grid-template-columns: var(--modulesWidth) var(--menuWidth) 1fr var(
+      --configvWidth
+    );
+  grid-template-rows: 0px 1fr;
+  min-height: 100vh;
+  font-family: "Didact Gothic", Times;
+  font-size: 90%;
+  /* MEDIA */
+  @include respond-to(md) {
+    grid-template-areas:
+      ". search "
+      "modules main "
+      "menu main"
+      "iconpanel .";
+    grid-template-columns: var(--menuWidth) 1fr;
+    grid-template-rows: 0px var(--modulesHeight) 1fr 0;
+  }
+  @include respond-to(sm) {
+    grid-template-areas:
+      "search search "
+      "modules main "
+      "menu main"
+      "iconpanel .";
+    grid-template-columns: 0px 1fr;
+    grid-template-rows: min-content 0px 1fr 0;
+  }
+  /* BASE */
+  a {
+    color: var(--navTextColor);
+    text-decoration: none;
+  }
+  h1 {
+    font-size: 130%;
+  }
+  h2 {
+    margin-bottom: var(--smallIndent);
+    text-transform: uppercase;
+  }
+  strong {
+    font-weight: 600;
+  }
+  .g-type-task {
+    &._priority {
+      &._text {
+        &:before {
+          content: "приоритет";
+        }
+      }
+      &._bg {
+        background: var(--priorityColor);
+      }
+    }
+    &._express {
+      &._text {
+        &:before {
+          content: "экспресс";
+        }
+      }
+      &._bg {
+        background: var(--expressColor);
+      }
+    }
+  }
+  // .color-marker {
+  // display: inline-block;
+  // margin-right: 5px;
+  // position: relative;
+  // width: 10px;
+  // height: 10px;
+  // &:before {
+  // content: "";
+  // @include radius(2px);
+  // display: inline-block;
+  // position: absolute;
+  // width: 100%;
+  // height: 100%;
+  // }
+  // &.priority:before {
+  // background: var(--priorityColor);
+  // }
+  // &.exp:before {
+  // background: var(--expressColor);
+  // }
+  // }
+  input:focus,
+  select:focus,
+  textarea:focus,
+  button:focus {
+    outline: none;
+  }
+  button {
+    @include radius;
+    @include substrateColor(accent);
+    font-size: 105%;
+    padding: 10px 15px;
+    border: 0px;
+    cursor: pointer;
+    &.unimportant {
+      background: var(--unimportantButtonColor);
+      color: var(--mainContentColor);
+    }
+    &.circle {
+      border-radius: 50%;
+      padding: var(--smallIndent);
+      line-height: 0;
+    }
+  }
+  input {
+    box-sizing: border-box;
+    border: 0;
+  }
+  .hide-sm {
+    @include respond-to(sm) {
+      display: none;
+    }
+  }
+  .styleform {
+    .fieldset {
+      display: flex;
+      margin-bottom: var(--baseIndent);
+      > {
+        label {
+          flex: 1;
+          align-self: center;
+        }
+        .inp {
+          flex: 2;
+        }
+      }
+    }
+    input:not([type="checkbox"]),
+    textarea {
+      @include radius;
+      width: 100%;
+      padding: 9px;
+      box-sizing: border-box;
+      background-color: var(--inputColor);
+      border: 1px solid var(--inputBorderColor);
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+      font-family: inherit;
+      &.dropfile {
+        padding: 20px;
+      }
+    }
+    textarea {
+      min-height: 100px;
+    }
+  }
+  .jslink {
+    color: var(--accentColor);
+    border-bottom: 1px dotted;
+    cursor: pointer;
+    // margin: 0 10px;
+  }
+  .g-pmenu {
+    @include appearAnimantion(masked, bottom);
+    position: absolute;
+    top: 0;
+    margin-top: calc(var(--heightBlock) + var(--baseIndent));
+    max-width: 200px;
+    z-index: var(--z-indexPopupMenu);
+    // -index: 10000;
+    &.open {
+      @include appearAnimantion(shown);
+      // opacity: 0.8;
+    }
+    &.right-arrow {
+      right: 0;
+      ul:before {
+        right: 10px;
+      }
+    }
+    &.left-arrow ul:before {
+      left: 2px;
+    }
+    ul {
+      @include shadow;
+      @include radius;
+      background: var(--popupBgColor);
+      color: var(--popupContentColor);
+      &:before {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 10px 10px 10px;
+        border-color: transparent transparent var(--popupBgColor) transparent;
+        margin-top: -10px;
+        @include respond-to(sm) {
+          opacity: 0;
+        }
+      }
+      li {
+        @include basePadding;
+        &:hover {
+          background: var(--popupBgListHoverColor);
+        }
+        &.withimg {
+          display: flex;
+          > *:first-child {
+            margin: -2px 10px 0 0;
+          }
+          img {
+            width: 22px;
+            height: 22px;
+          }
+        }
+      }
+    }
+  }
+  /* END_BASE */
+  #bodyshadow {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: var(--z-indexLockWindow);
+    visibility: hidden;
+    opacity: 0;
+    &.on {
+      @include transition(opacity);
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  // https://www.iconfinder.com/icons/2529962/page_web_website_www_icon_icon
+  // https://www.iconfinder.com/icons/3092937/note_notes_paper_post_postit_sticky_icon
+  // https://www.iconfinder.com/icons/2318451/calendar_daily_date_monthly_schedule_timed_calendar_timed_event_timed_schedule_icon
+  // https://www.iconfinder.com/icons/1737368/comment_description_outline_problem_task_tasks_taskstroke_icon
+  // https://www.iconfinder.com/iconsets/feather
+  // https://www.iconfinder.com/iconsets/feather-2
+  // https://www.iconfinder.com/icons/1167997/another_dots_menu_more_options_other_icon
+  /* MENU */
+  @import "../kit/menu.scss";
+  /* MODULES */
+  @import "../kit/modules.scss";
+  /* MAIN */
+  @import "../kit/main.scss";
+  /* END_MAIN */
+  @import "../kit/top-menu.scss";
+  /* ICON_PANEL */
+  @import "../kit/iconpanel.scss";
+  /* END_config */
+  @include respond-to(sm) {
+    &.fixedmenu #modules,
+    &.fixedmenu #menu {
+      @include appearAnimantion(shown);
+    }
+  }
+}
+@import "../main/bg_masker.scss";
