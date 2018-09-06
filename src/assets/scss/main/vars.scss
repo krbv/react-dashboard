@@ -1,0 +1,51 @@
+$greyColor: #eee;
+$yellowColor: #ffd012;
+$greenColor: #8fdc33;
+$redColor: red;
+
+$navColor: #222b35;
+$mainColor: #2c3644;
+$contentColor: #fff;
+$accentColor: #008ddd;
+
+$darkColor: darken($greyColor, 20%);
+$configColor: $greyColor;
+
+$menuTextColor: $greyColor;
+$subMenuTextColor: $menuTextColor;
+
+$navLightColor: lighten($navColor, 20%);
+
+$widthEdges: 1200px;
+
+$tabsHeight: 36px;
+
+$baseIndent: 20px;
+$smallIndent: 8px;
+$radiusPx: 3px;
+
+$configTopMargin: $tabsHeight + $baseIndent;
+
+$break-md: 960px;
+$break-sm: 780px;
+$break-xs: 560px;
+
+$shadowRgba: rgba(0, 0, 0, 0.4);
+
+:root {
+  --smallIndent: #{$smallIndent};
+  --baseIndent: #{$baseIndent};
+
+  --configvWidth: 30px;
+  --menuWidth: 200px;
+  --modulesWidth: 70px;
+  --modulesHeight: 130px;
+  --fullMenuWidth: calc(var(--menuWidth) + var(--modulesWidth));
+
+  --mainContentMaxWidth: #{$widthEdges};
+
+  --z-indexPwindow: 50;
+  --z-indexPopupMenu: 10;
+  --z-indexMainMenu: 30;
+  --z-indexLockWindow: 40;
+}

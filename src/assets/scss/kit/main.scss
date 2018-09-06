@@ -1,0 +1,252 @@
+main {
+  grid-area: main;
+  background-color: var(--mainSubstrateBg);
+  line-height: 1.2;
+  display: grid;
+  grid-template-areas:
+    "pwindow"
+    "switcher"
+    "title"
+    "content";
+
+  grid-template-rows:
+    0px
+    min-content
+    min-content
+    min-content;
+
+  grid-template-columns: 1fr;
+
+  --colorTitleSize: 130px;
+  --contentNegativeIndent: -60px;
+
+  @include respond-to(sm) {
+    --colorTitleSize: 50px;
+    --contentNegativeIndent: 0px;
+  }
+
+  a {
+    color: var(--accentColor);
+  }
+
+  > section.mwindow {
+    @import "./mwindow.scss";
+  }
+
+  > section.tabs-switcher {
+    grid-area: switcher;
+    @include respond-to(sm) {
+      display: none;
+    }
+    .wrap {
+      background-color: var(--mainBgColor);
+      overflow: hidden;
+      display: flex;
+
+      li {
+        flex-grow: 1;
+        //flex-basis: 0;
+        display: block;
+        position: relative;
+        margin-top: var(--baseIndent);
+        line-height: $tabsHeight;
+        max-width: 105px;
+
+        @for $i from 1 through 10 {
+          &:nth-child(#{$i}) {
+            z-index: 10 - $i;
+          }
+        }
+
+        &.active {
+          z-index: 10;
+          color: initial;
+          &:before,
+          &:after {
+            background: var(--accentColor);
+          }
+        }
+
+        &.all {
+          i.twoarrows {
+            position: absolute;
+            margin: 8px 13px;
+            cursor: pointer;
+          }
+
+          &:before {
+            display: none;
+          }
+          &:after {
+            left: 0;
+            width: 40px;
+          }
+        }
+
+        &:before,
+        &:after {
+          background: var(--inactiveTabBgColor);
+        }
+        &:before {
+          content: "";
+          position: absolute;
+          display: block;
+          width: calc(100% - 5px);
+          right: 5px;
+          height: 100%;
+          overflow: hidden;
+          border-top-left-radius: $radiusPx;
+        }
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: -10px;
+          bottom: 0;
+          width: 60px;
+          height: 100%;
+          border-radius: $radiusPx $radiusPx 0 0;
+          box-shadow: 5px 0px 10px 0 rgba(0, 0, 0, 0.2);
+          transform: perspective(10px) rotateX(1.6deg) translateZ(-1px);
+          transform-origin: 0 0;
+          overflow: hidden;
+        }
+
+        > span.name {
+          display: block;
+          overflow: hidden;
+          position: relative;
+          padding: 0 15px;
+
+          white-space: nowrap;
+
+          text-overflow: ellipsis;
+          z-index: 2;
+        }
+        > span.closewrap {
+          @include radius;
+          overflow: hidden;
+          position: absolute;
+          width: 21px;
+          height: 21px;
+          right: -4px;
+          top: 7px;
+          z-index: 100;
+          cursor: pointer;
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+          }
+          i {
+            position: absolute;
+            margin: 3px 3px;
+          }
+        }
+        i {
+          opacity: 0.5;
+          z-index: 10;
+        }
+      }
+    }
+  }
+
+  > section.tab-active {
+    grid-area: title;
+    background: var(--accentColor);
+    height: var(--colorTitleSize);
+    .edges {
+      display: flex;
+      align-items: flex-end;
+      max-width: var(--mainContentMaxWidth);
+      margin: 0 auto;
+      height: calc(var(--colorTitleSize) + var(--contentNegativeIndent));
+      padding-bottom: var(--smallIndent);
+      box-sizing: border-box;
+      @include respond-to(sm) {
+        align-items: center;
+        padding: 0;
+      }
+      > * {
+        flex: 1;
+      }
+      .title {
+        flex-basis: 50%;
+        text-align: center;
+        color: var(--titleColor);
+        padding-bottom: var(--baseIndent);
+        @include respond-to(sm) {
+          padding-bottom: 5px;
+        }
+      }
+
+      > .icons {
+        white-space: nowrap;
+
+        &.view {
+          text-align: right;
+        }
+        & > * {
+          cursor: pointer;
+          margin: 0 var(--smallIndent);
+          display: inline-block;
+          // padding: 0 var(--smallIndent);
+          // width: var(--smallIconSize);
+          // height: var(--smallIconSize);
+          position: relative;
+          --heightBlock: 10px; //for popup menu
+        }
+      }
+    }
+  }
+
+  > section.tab-content {
+    grid-area: content;
+    height: calc(100% - #{$tabsHeight + $baseIndent});
+    margin-bottom: var(--baseIndent);
+    margin-top: var(--contentNegativeIndent);
+    .wrap {
+      @include radius;
+
+      width: 100%;
+      max-width: var(--mainContentMaxWidth);
+      margin: 0 auto;
+      @import "../pages/task/list.scss";
+      @import "../pages/task/single.scss";
+      > section {
+        @include substrateColor(content);
+      }
+    }
+  }
+}
+
+section.pagination {
+  @include basePadding;
+  background-color: unset !important;
+
+  ul {
+    @include indentBetween("horizontal");
+    display: flex;
+    justify-content: center;
+    margin: var(--baseIndent) 0;
+    li {
+      @include radius;
+      @include shadow("short");
+      padding: 12px 20px;
+      text-align: center;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      &.next {
+        position: relative;
+        padding-right: 30px;
+        i {
+          @include absoluteCenter;
+          left: 80%;
+          opacity: 0.5;
+        }
+      }
+      &.current {
+        @include substrateColor(accent);
+        cursor: default;
+      }
+    }
+  }
+}

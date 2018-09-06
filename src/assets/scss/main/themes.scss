@@ -1,0 +1,71 @@
+.app.blue-theme {
+  --colorWhite: #fff;
+
+  --hoverListColor: #eee;
+  --navTextColor: var(--colorWhite);
+
+  --accentColor: #008ddd;
+  --mainContentBg: var(--colorWhite);
+  --mainSubstrateBg: #f7f7f7;
+  --mainContentColor: #333;
+  --mainContentBorderColor: #{$greyColor};
+  --modulesBgColor: #222b35;
+  --mainBgColor: #2c3644;
+  --greyColor: #eee;
+  --titleColor: var(--colorWhite);
+
+  --alertBgColor: #e64a19;
+  --alertContentColor: var(--navTextColor);
+
+  --inactiveTabBgColor: #{lighten($navColor, 20%)};
+
+  /* INPUT */
+  --inputBorderColor: #{darken(#eee, 10%)};
+  --inputColor: #eee;
+  --unimportantButtonColor: var(--inputColor);
+
+  /* MODULES */
+  --modulTaskBg: #1565c0;
+  --modulStickerkBg: #00838f;
+  --modulCalendarkBg: var(--alertBgColor);
+  --modulEditorkBg: #6a1b9a;
+
+  /* CONFIG */
+  --configBg: #{$greyColor};
+  --configIconBg: var(---mainContentBg);
+  --topMenuIconBg: var(--navTextColor);
+
+  /* POPUP, ADD, SUBMENU */
+  --popupBgColor: var(--mainSubstrateBg);
+  --popupContentColor: var(--mainContentColor);
+  --popupBgListHoverColor: var(--hoverListColor);
+
+  /* STATUS COLOR */
+  --statusColorWait: #ddd;
+  --statusColorDone: #8fdc33;
+  --statusColorError: red;
+  --statusColorRun: #ffd012;
+
+  --expressColor: orange;
+  --priorityColor: yellow;
+}
+
+// status color
+.statcolor-wait,
+.statcolor-after-wait:after {
+  background: var(--statusColorWait);
+}
+.statcolor-done,
+.statcolor-after-done:after {
+  background: var(--statusColorDone);
+}
+.statcolor-error,
+.statcolor-after-error:after {
+  background: var(--statusColorError);
+  color: var(--colorWhite);
+}
+.statcolor-run,
+.statcolor-after-run:after {
+  background: var(--statusColorRun);
+}
+// end_status color

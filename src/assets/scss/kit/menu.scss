@@ -1,0 +1,54 @@
+nav#menu {
+  grid-area: menu;
+  @include basePadding; /* MEDIA */
+  // @include respond-to(md) { // margin-top: calc(120px + var(--baseIndent));
+  // }
+
+  // position: absolute;
+  // min-width: 300px;
+
+  @include respond-to(sm) {
+    @include modNavDef-sm-style;
+    margin-top: var(--modulesHeight);
+    height: 100%;
+  }
+  section {
+    margin-bottom: var(--baseIndent);
+    button {
+      width: 100%;
+    }
+    .group-name {
+      color: var(--accentColor);
+    }
+  }
+  ul {
+    li {
+      @include columnListIndent();
+      padding-left: 15px;
+      padding-right: 0;
+      font-size: 105%;
+      &.active {
+        @include radius;
+        background-color: var(--inactiveTabBgColor);
+      }
+      &:hover:not(.active) {
+        @include radius;
+        background-color: var(--modulesBgColor);
+      }
+      span.marker {
+        @include radius(2px);
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin-right: 5px;
+      }
+    }
+  }
+  .info {
+    float: right;
+    opacity: 0.5;
+    &.num {
+      font-size: 85%;
+    }
+  }
+}
